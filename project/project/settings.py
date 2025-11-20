@@ -43,9 +43,9 @@ INSTALLED_APPS = [
 ]
 
 ACCOUNT_ACTIVATION_DAYS=7
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = 'dgjb lnfj oqrz tflr'
-EMAIL_HOST_USER = 'itshelenwu@gmail.com' 
+EMAIL_HOST = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = '' 
 EMAIL_PORT =587
 EMAIL_USE_TLS = True
 
