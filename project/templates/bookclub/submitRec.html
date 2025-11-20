@@ -1,0 +1,24 @@
+{% extends "bookclub/base.html" %}
+{% block title %} BookClub {% endblock %}
+{% block content %}
+
+<div class="container" align="center">
+	{% for message in messages %}
+	<div class="alert alert-{{message.tags}}">{{message}}</div>
+	{% endfor %}
+	<form name="my form" action="." method="POST">
+		{% csrf_token %}
+		<table>
+			{{rec_form.as_table}}
+		</table>
+		<input type="submit" value="Submit">
+		<input type="reset" value="Clear">
+	</form>
+	<br>
+	<form action="." method="POST">
+			{% csrf_token %}
+			<a href=".." class="btn btn-primary">Back</a>
+		</form>
+</div>
+
+{% endblock %}

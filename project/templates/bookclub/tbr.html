@@ -1,0 +1,63 @@
+{% extends "bookclub/base.html" %}
+{% block title %} TBR {% endblock %}
+{% block content %}
+
+<div class="container" align="center">
+	{% for message in messages %}
+	<div class="alert alert-{{message.tags}}">{{message}}</div>
+	{% endfor %}
+	<form name="my form" action="." method="POST">
+		{% csrf_token %}
+		<table>
+			{{tbr_form.as_table}}
+		</table>
+		<input type="submit" value="Submit">
+		<input type="reset" value="Clear">
+	</form>
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>Books On My TBR</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<table>
+	<tr bgcolor="#cccccc" height="50">
+		<td width="300" align="center">Book Title</td>
+		<td width="800" align="center">Book Synopsis</td>
+		<td width="250" align="center">Book Author</td>
+	</tr>
+	{% for tbr in tbrs %}
+		<tr bgcolor="{%cycle '#dse2d3' '#dsedf8' %}"  height="50">
+			<td align="center"><a href="/tbr/{{tbr.id}}/">{{tbr.title}}</a></td>
+			<td align="center">{{tbr.description |truncatechars:60 }}</td>
+			<td align="center">{{tbr.author}}</td>		
+		</tr>
+	{% endfor %}
+	</table>
+<!-- 	</div>
+	{% for book in tbrs %}
+		{% cycle "<div class='row'>" "" "" %}
+			<div class="col-md-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading" align="center">
+						{{book.title}}
+					</div>
+					<div class="panel-body">
+						{{book.description | linebreaks }}
+					</div>
+					<div class="panel-footer">
+						Author：{{book.author}}
+					</div>
+				</div>
+			</div>
+		{% cycle "" "" "</div>"%}
+	{% endfor %} -->
+
+
+</div>
+{% endblock %}

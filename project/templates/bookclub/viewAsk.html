@@ -1,0 +1,55 @@
+{% extends "bookclub/base.html" %}
+{% block title %} Ask/Rec {% endblock %}
+{% block content %}
+<div class = "container">
+	<h3><u>Asked By</u></h3>
+	<p style="font-size:20px">{{ask.user}}</p>
+	<hr>
+	<h3><u>Subject Title</u></h3>
+	<p style="font-size:20px">{{ask.title}}</p>
+	<hr>
+	<h3><u>Their Needs</u></h3>
+	<p style="font-size:20px">{{ask.description}}</p>
+	<hr>
+	<h3><u>What They Don't Want</u></h3>
+	<p style="font-size:20px">{{ask.triggers}}</p>
+	<hr>
+<!-- 	<h3>Price: </h3>
+	{{ask.pub_time}} -->
+	<hr>
+	<form action="." method="POST">
+		{% csrf_token %}
+		<a href="rec/" class="btn btn-success">Submit A Rec</a>
+		<a href="/ask/" class="btn btn-primary">Back to Asks</a>
+	</form>
+
+	<hr>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>Book Recs by Fellow Users</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% for rec in recs %}
+		{% cycle "<div class='row'>" "" "" %}
+			<div class="col-md-4">
+				<div class="panel {% cycle 'panel-success' 'panel-info'%}">
+					<div class="panel-heading" align="center">
+						<!-- <a href="/ask/{{ask.id}}/{{rec.id}}/">{{rec.title}}</a> -->
+						{{rec.title}}
+					</div>
+					<div class="panel-body">
+						{{rec.description}}
+					</div>
+					<div class="panel-footer">
+						Recommended by：{{rec.user}}
+					</div>
+				</div>
+			</div>
+		{% cycle "" "" "</div>"%}
+	{% endfor %}
+</div>
+{% endblock %}

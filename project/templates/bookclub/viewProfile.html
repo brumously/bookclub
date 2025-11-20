@@ -1,0 +1,136 @@
+{% extends "bookclub/base.html" %}
+{% block title %} Profile {% endblock %}
+{% block content %}
+
+<div class="container">
+	{% for message in messages %}
+		<div class="alert alert-{{message.tags}}">{{message}}</div>
+	{% endfor %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>{{user}}'s Recent Reads</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% for book in books|slice:":8" %}
+		{% cycle "<div class='row'>" "" "" "" %}
+			<div class="col-md-3">
+				<div class="panel panel-info">
+					<div class="panel-heading" align="center">
+						{{book.title}}
+					</div>
+					<div class="panel-body">
+						<!-- {{book.review | linebreaks }} -->
+						<!-- <a href="/booklog/{{book.id}}/"><img src='{{book.cover}}' width='100%'></a> -->
+						<img src='{{book.cover}}' width='100%'>
+					</div>
+					<div class="panel-footer" align="center">
+						{% for _ in ''|center:5 %}
+							{% if forloop.counter <= book.rating %}
+						    <span class="glyphicon glyphicon-star"></span>
+							{% else %}
+							<span class="glyphicon glyphicon-star-empty"></span>
+							{% endif %}
+						{% endfor %}
+						<!-- Rating：{{book.rating}}/5 Stars -->
+						
+						
+					</div>
+				</div>
+			</div>
+		<!-- {% cycle "" "" "" "</div>" %} -->
+		{% if forloop.last or forloop.counter == 4 or forloop.counter == 8%}
+			</div>
+		{% endif %}
+	{% empty %}
+		<div class="panel-body" align="center">
+	  		<h3>{{user}} hasn't read any books yet.</h3>
+	  	</div>
+	{% endfor %}
+
+	<hr>
+	
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>{{user}}'s  Upcoming TBRs</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	 {% for book in tbrs|slice:":6" %}
+		{% cycle "<div class='row'>" "" "" %}
+			<div class="col-md-4">
+				<div class="panel panel-danger">
+					<div class="panel-heading" align="center">
+						{{book.title}}
+					</div>
+					<div class="panel-body">
+						{{book.description | linebreaks |truncatechars:45 }}
+					</div>
+					<div class="panel-footer">
+						Author：{{book.author}}
+					</div>
+				</div>
+			</div>
+		{% if forloop.last %}
+			</div>
+		{% endif %}
+	{% empty %}
+		<div class="panel-body" align="center">
+	  		<h3>{{user}} doesn't have any books on their TBR.</h3>
+	  	</div>
+	{% endfor %}
+
+
+	<hr>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>{{user}}'s  Recent Asks</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% for ask in asks|slice:":6" %}
+		{% cycle "<div class='row'>" "" "" %}
+			<div class="col-md-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading" align="center">
+						{{ask.title}}
+					</div>
+					<div class="panel-body">
+						{{ask.description}}
+					</div>
+					<div class="panel-footer" align="right">
+						<i><small>{{ask.pub_time}}</small></i>
+					</div>
+				</div>
+			</div>
+		{% if forloop.last %}
+			</div>
+		{% endif %}
+	{% empty %}
+		<div class="panel-body" align="center">
+	  		<h3>{{user}} hasn't submitted any asks.</h3>
+	  	</div>
+	{% endfor %}
+
+	<hr>
+
+	<form action="." method="POST" align="center">
+		{% csrf_token %}
+		<a href="/ask/" class="btn btn-primary">Back</a>
+	</form>
+
+</div>
+
+{% endblock %}

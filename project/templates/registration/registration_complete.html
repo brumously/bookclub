@@ -1,0 +1,23 @@
+{% extends "bookclub/base.html" %}
+{% block title %} BookClub {% endblock %}
+{% block content %}
+
+<div class="container">
+	{% for message in messages %}
+	<div class="alert alert-{{message.tags}}">{{message}}</div>
+	{% endfor %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>感謝註冊</h3>
+					<p>請到電子郵件中啟用帳號</p>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+</div>
+
+{% endblock %}

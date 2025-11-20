@@ -1,0 +1,28 @@
+{% extends "bookclub/base.html" %}
+{% block title %} BookClub {% endblock %}
+{% block content %}
+
+<div class="container">
+	<!-- {% if message %}
+	<div class="alert alert-warning">{{message}}</div>
+	{% endif %} -->
+	{% for message in messages %}
+		<div class="alert alert-{{message.tags}}">{{message}}</div>
+	{% endfor %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>Welcome to BookClub</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel-body" align="center">
+  		<h3>Please login first.</h3>
+  	</div>
+
+</div>
+
+{% endblock %}

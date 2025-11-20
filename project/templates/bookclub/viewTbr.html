@@ -1,0 +1,23 @@
+{% extends "bookclub/base.html" %}
+{% block title %} TBR {% endblock %}
+{% block content %}
+<div class = "container">
+	<div class="col-md-12" align="center">
+		<h3><u>Book Title</u> </h3>
+		<p style="font-size:20px"><em>{{tbr.title}}</em></p>
+		<hr>
+		<h3><u>Author:</u></h3>
+		<p style="font-size:20px"><em>{{tbr.author}}</em></p> 
+		<hr>
+		<h3><u>Book Description</u> </h3>
+		<p style="font-size:20px"><em>{{tbr.description}}</em></p>
+		<hr>
+		<form action="." method="POST">
+			{% csrf_token %}
+			<a href=".." class="btn btn-primary">Back</a>
+<!-- 			<a href="/home/" class="btn btn-success">Back to Home</a>
+			<a href="/booklog/" class="btn btn-primary">Back to My Books</a> -->
+		</form>
+	</div>
+</div>
+{% endblock %}

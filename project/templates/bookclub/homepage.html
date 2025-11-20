@@ -1,0 +1,149 @@
+{% extends "bookclub/base.html" %}
+{% block title %} BookClub {% endblock %}
+{% block content %}
+
+<div class="container">
+	{% for message in messages %}
+		<div class="alert alert-{{message.tags}}">{{message}}</div>
+	{% endfor %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>My Recent Reads</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% for book in books|slice:":8" %}
+		{% cycle "<div class='row'>" "" "" "" %}
+			<div class="col-md-3">
+				<div class="panel panel-info">
+					<div class="panel-heading" align="center">
+						{{book.title}}
+					</div>
+					<div class="panel-body">
+						<!-- {{book.review | linebreaks }} -->
+						<a href="/booklog/{{book.id}}/"><img src='{{book.cover}}' width='100%'></a>
+					</div>
+					<div class="panel-footer" align="center">
+						{% for _ in ''|center:5 %}
+							{% if forloop.counter <= book.rating %}
+						    <span class="glyphicon glyphicon-star"></span>
+							{% else %}
+							<span class="glyphicon glyphicon-star-empty"></span>
+							{% endif %}
+						{% endfor %}
+						<!-- Rating：{{book.rating}}/5 Stars -->
+						
+						
+					</div>
+				</div>
+			</div>
+		<!-- {% cycle "" "" "" "</div>" %} -->
+		{% if forloop.last or forloop.counter == 4 or forloop.counter == 8%}
+			</div>
+		{% endif %}
+	{% empty %}
+		<div class="panel-body" align="center">
+	  		<h3>You haven't read any books.</h3>
+	  	</div>
+	{% endfor %}
+
+	<hr>
+	
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>My Upcoming TBRs</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	 {% for book in tbrs|slice:":6" %}
+		{% cycle "<div class='row'>" "" "" %}
+			<div class="col-md-4">
+				<div class="panel panel-danger">
+					<div class="panel-heading" align="center">
+						{{book.title}}
+					</div>
+					<div class="panel-body">
+						{{book.description | linebreaks |truncatechars:45 }}
+					</div>
+					<div class="panel-footer">
+						Author：{{book.author}}
+					</div>
+				</div>
+			</div>
+		{% if forloop.last %}
+			</div>
+		{% endif %}
+	{% empty %}
+		<div class="panel-body" align="center">
+	  		<h3>You don't have any books on your TBR.</h3>
+	  	</div>
+	{% endfor %}
+
+
+	<hr>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>My Recent Asks</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<table>
+		<tr bgcolor="#cccccc" height="50">
+			<td width="350" align="center">Subject</td>
+			<td width="500" align="center">Description</td>
+			<td width="300" align="center">Triggers</td>
+			<!-- <td width="200">Asked By</td> -->
+			<td width="200" align="center">Time</td>
+			<td width="100" align="center">Delete</td>
+		</tr>
+		{% for ask in asks %}
+			<tr bgcolor="{%cycle '#ffccff' '#ccffcc' %}"  height="50">
+				<td align="center"><a href="/ask/{{ask.id}}/">{{ask.title}}</a></td>
+				<td align="center">{{ask.description |truncatechars:50 }}</td>
+				<td align="center">{{ask.triggers |truncatechars:20 }}</td>
+				<!-- <td><a href="/profile/{{ask.user}}/">{{ask.user}}</a></td>		 -->
+				<td align="center">{{ask.pub_time}}</td>
+				<td align="center"><a href="/ask/{{ask.id}}/del"><span class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+		{% endfor %}
+	</table>
+	<!-- {% for ask in asks|slice:":3" %}
+		{% cycle "<div class='row'>" "" "" %}
+			<div class="col-md-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading" align="center">
+						{{ask.title}}
+					</div>
+					<div class="panel-body">
+						{{ask.description}}
+					</div>
+					<div class="panel-footer" align="right">
+						<i><small>{{ask.pub_time}}</small></i>
+					</div>
+				</div>
+			</div>
+		{% if forloop.last %}
+			</div>
+		{% endif %}
+	{% empty %}
+		<div class="panel-body" align="center">
+	  		<h3>You haven't submitted any asks.</h3>
+	  	</div>
+	{% endfor %} -->
+
+
+
+</div>
+
+{% endblock %}

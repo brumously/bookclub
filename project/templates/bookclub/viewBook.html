@@ -1,0 +1,29 @@
+{% extends "bookclub/base.html" %}
+{% block title %} Book {% endblock %}
+{% block content %}
+<div class = "container">
+	<div class="col-md-12" align="center">
+		<h3><u>Book Title</u> </h3>
+		<p style="font-size:20px"><em>{{book.title}}</em></p>
+		<br>
+		<img src='{{book.cover}}' width='300'>
+	<!-- 	<h3>Author: </h3>
+		{{ask.description}} -->
+		<hr>
+		<h3><u>My Review</u> </h3>
+		<p style="font-size:20px"><em>{{book.review}}</em></p>
+		<hr>
+		<h3><u>My Rating</u></h3>
+		<p style="font-size:20px"><em>{{book.rating}} out of 5 Stars</em></p>
+		<hr>
+		<h3><u>Date Finished</u></h3>
+		<p style="font-size:20px"><em>{{book.date}}</em></p>
+		<hr>
+		<form action="." method="POST">
+			{% csrf_token %}
+			<a href="/home/" class="btn btn-success">Back to Home</a>
+			<a href="/booklog/" class="btn btn-primary">Back to My Books</a>
+		</form>
+	</div>
+</div>
+{% endblock %}
